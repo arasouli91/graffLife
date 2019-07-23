@@ -1,0 +1,3 @@
+CC = em++
+all: *.cpp *.h
+	$(CC) *.cpp -O3 -s TOTAL_MEMORY=134217728 -s WASM=1 -s ASSERTIONS=1 -std=c++11 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s FORCE_FILESYSTEM=1 -s SDL2_IMAGE_FORMATS='["png"]' --embed-file walkSheet.png --preload-file assets --use-preload-plugins -o index.html
