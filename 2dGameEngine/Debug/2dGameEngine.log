@@ -1,0 +1,55 @@
+﻿  2dGameEngine.cpp
+  Collision.cpp
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(81): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(82): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(97): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(98): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(119): warning C4806: '&': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(180): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(216): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(226): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  ECS.cpp
+  Game.cpp
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(81): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(82): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(97): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\spritecomponent.h(98): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(29): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(30): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(40): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\canvascomponent.h(41): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(119): warning C4806: '&': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(180): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(216): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\paintcontroller.h(226): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\game.cpp(175): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\game.cpp(176): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\game.cpp(233): warning C4244: 'initializing': conversion from 'const double' to 'int', possible loss of data
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\ecs.h(89): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+  c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\game.cpp(105): note: see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int,int,int,int,int,int,int>(int &&,int &&,int &&,int &&,int &&,int &&,int &&)' being compiled
+          with
+          [
+              T=TransformComponent
+          ]
+c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\ecs.h(89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  c:\users\arasouli\source\repos\2dgameengineemscriptenworkingbranch\2dgameengine\game.cpp(217): note: see reference to function template instantiation 'T &Entity::addComponent<TransformComponent,int&,int&,int&,int&>(int &,int &,int &,int &)' being compiled
+          with
+          [
+              T=TransformComponent
+          ]
+  GameObject.cpp
+  Map.cpp
+  stdafx.cpp
+  TextureManager.cpp
+  Vector2d.cpp
+  Generating Code...
+Game.obj : error LNK2019: unresolved external symbol _emscripten_set_devicemotion_callback referenced in function "public: __thiscall Game::Game(char const *,int,int,int,int,bool)" (??0Game@@QAE@PBDHHHH_N@Z)
+C:\Users\arasouli\source\repos\2dGameEngineEmscriptenWorkingBranch\Debug\2dGameEngine.exe : fatal error LNK1120: 1 unresolved externals

@@ -15,7 +15,7 @@ Then reloading occurs when transistioning levels
 using std::cout; using std::endl;
 
 
-//EM_BOOL motionCallback(int eventType, const EmscriptenDeviceMotionEvent *e, void *userData);
+EM_BOOL motionCallback(int eventType, const EmscriptenDeviceMotionEvent *e, void *userData);
 
 Manager manager;
 
@@ -117,7 +117,7 @@ Game::Game(const char* title, int xpos, int ypos, int width, int height, bool fu
 	player.addGroup(groupPlayer);
 
 	// Register device motion event callback
-	//emscripten_set_devicemotion_callback( &(map.getComponent<PaintController>()), 1, motionCallback);
+	emscripten_set_devicemotion_callback( &(map.getComponent<PaintController>()), 1, motionCallback);
 
 	topC.addComponent<TransformComponent>(0.0f, 254.0f,3000, 10);
 	topC.addComponent<ColliderComponent>("topC");
@@ -137,8 +137,8 @@ Game::Game(const char* title, int xpos, int ypos, int width, int height, bool fu
 
 void Game::handleEvents()
 {
-	SDL_PollEvent(&event);
-	/*while (SDL_PollEvent(&event)) {
+	//SDL_PollEvent(&event);
+	while (SDL_PollEvent(&event)) {
 		if (event.type != lastEvent || lastEvent == SDL_FINGERMOTION) {
 			lastEvent = event.type;
 			switch (event.type) {
@@ -147,7 +147,7 @@ void Game::handleEvents()
 			case SDL_FINGERMOTION:
 			case SDL_FINGERDOWN:
 			case SDL_FINGERUP:
-				//map.getComponent<PaintController>().update_touch(event.type, event.tfinger.x * float(screenRect.w), event.tfinger.y* float(screenRect.h));
+				map.getComponent<PaintController>().update_touch(event.type, event.tfinger.x * float(screenRect.w), event.tfinger.y* float(screenRect.h));
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				//std::cout << "Inside Mouse event switch case " << event.type << std::endl;
@@ -156,7 +156,6 @@ void Game::handleEvents()
 			}
 		}
 	}
-*/
 }
 /*
 			map.getComponent<PaintController>()
@@ -227,7 +226,7 @@ Game::~Game()
 	SDL_Quit();
 	std::cout << "Game cleaned." << std::endl;
 }
-/**
+
 EM_BOOL motionCallback(int eventType, const EmscriptenDeviceMotionEvent * e, void * userData)
 {
 	//std::cout<< e->accelerationIncludingGravityX<<"  "<< e->accelerationIncludingGravityY << std::endl;
@@ -235,4 +234,3 @@ EM_BOOL motionCallback(int eventType, const EmscriptenDeviceMotionEvent * e, voi
 	player.getComponent<KeyboardController>().update_x(x);
 	return 1;
 }
-*/

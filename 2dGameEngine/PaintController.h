@@ -7,7 +7,8 @@ class PaintController : public Component
 {
 private:
 	bool leftButton, rightButton, canPaint = 1, leftClick = 1;
-	int mouseX, mouseY, dist{ 0 }, fCount = 0;
+	int mouseX, mouseY, dist{ 0 }, fCount = 0, motionCount = 0;
+	float  touchX = 0, touchY = 0, lastDx = 0, lastDy = 0;
 	Uint32 lastTime = 0;
 	Uint8 r{ 0 }, g{ 0 }, b{ 0 };
 	KeyboardController *keyboard;
@@ -54,9 +55,61 @@ public:
 		}
 	}
 
+	void update_motion(float x, float y, float dx, float dy)
+	{
+		float epsilon = 0.00000001192092896f;
+		//float epsilon = 0.00000001f;
+		//std::cout << abs(dx - lastDx) << std::endl;
+		float DX = dx - floorf(dx), DY = dy - floorf(dy);
+		// Only if the motion in x and y are the same return
+		// Because if motion in x is constant and y motion changed, the touch could be moving on a perfect horizontal line
+		// Yeah, but what if 
+		if (abs(DX - lastDx) < epsilon || abs(DY - lastDy) < epsilon) {
+			++motionCount;
+			if (motionCount > 3) return;
+		}
+		else motionCount = 0;
+
+		// Update touch if there was actual movement in either direction.
+		// Does the touch x and y actually change with motion?
+		// We wouldn't need this method at all then.
+	//	if ( abs(x-touchX) > epsilon || abs(y-touchY) > epsilon)
+		//{
+			touchX += dx; touchY += dy;
+		//}
+		lastDx = dx; lastDy = dy;
+	}
+
+	// Need to reject motion if the dx or dy is equal
+	// Check float quality with episilon == .00001
+
+	// player.getComponent<PaintController>().update_touch(event.tfinger.x * screenRect.w, event.tfinger.y * screenRect.h);
+	void update_touch(Uint32 t, float x, float y)
+	{
+		touchX = x; touchY = y;
+		if (canPaint) {
+			if (SDL_FINGERDOWN == t) {
+				setButtonState(SDL_BUTTON_LEFT, true);
+				//std::cout << "FINGER DOWN" << std::endl;
+			}
+			else if (SDL_FINGERUP == t) {
+				if (leftButton)
+				{
+					leftClick = 1;	//Record the unpress action 
+				}
+				setButtonState(SDL_BUTTON_LEFT, false);
+				//std::cout << "FINGER UP" << std::endl;
+			}
+		}
+	}
+
+	/// For now, we are just omitting all the code in update() if we are on Android
 	void update() override
 	{
-		if (canPaint) {
+		///
+		// Temporarily disabled all this code, we need a way to conditionally disable it
+		// We could say if there was a touch, forget the mouse shit
+		if (!canPaint) {
 			if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(1))
 				setButtonState(SDL_BUTTON_LEFT, true);
 			else if (SDL_GetMouseState(NULL, NULL)&SDL_BUTTON(3)) {
@@ -74,7 +127,6 @@ public:
 				}
 				setButtonState(SDL_BUTTON_LEFT, false);
 			}
-
 
 			if (keys[SDL_GetScancodeFromKey(SDLK_r)]) {
 				if ((keys[SDL_GetScancodeFromKey(SDLK_DOWN)]) && r > 0)
@@ -110,7 +162,6 @@ public:
 				if (SDL_GetTicks() - lastTime > 300) {
 					canvas->undo();
 					lastTime = SDL_GetTicks();
-
 				}
 			}
 
@@ -120,17 +171,30 @@ public:
 	void draw() override
 	{
 		int prevX = mouseX, prevY = mouseY;
+
 		SDL_GetMouseState(&mouseX, &mouseY);
+
+		// We will have to do this if touch
+		///// HOW DO WE KNOW IF TOUCH?
+		// We get idle touch events always... but maybe we would never get an actual finger down?
+		mouseX = touchX; mouseY = touchY;
+
+		if (leftClick) {
+			prevX = mouseX;
+			prevY = mouseY;
+		}
 		if (leftButton && Game::camera.y < 50)
 		{
 			int alpha = 92 - fCount * 2;
 			if (alpha < 0)
 				alpha = 3;
 			SDL_SetTextureAlphaMod(texture, alpha);
-
-			SDL_Rect rect = { mouseX - static_cast<int>(transform->pos.x) - (12 + dist) / 2 + Game::camera.x, 
-						rect.y = mouseY - static_cast<int>(transform->pos.y) - (12 + dist) / 2 + Game::camera.y,
-						12 + dist, 12 + dist };
+			SDL_Rect rect = 
+			{ 
+				mouseX - static_cast<int>(transform->pos.x) - (12 + dist) / 2 + Game::camera.x, 
+				mouseY - static_cast<int>(transform->pos.y) - (12 + dist) / 2 + Game::camera.y,
+				12 + dist, 12 + dist 
+			};
 			if (leftClick) {	//If mouse is pressed
 				canvas->newCanvas();	//Begin painting on new canvas
 				leftClick = 0;
@@ -167,6 +231,9 @@ public:
 		SDL_SetRenderTarget(Game::renderer, NULL);	//Allows everything else to be rendered
 	}
 };
+
+
+
 
 
 
