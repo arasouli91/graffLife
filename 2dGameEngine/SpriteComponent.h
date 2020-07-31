@@ -8,9 +8,12 @@
 #include <vector>
 #include "Animation.h"
 #include <map>
+#include <chrono>
 
 //DBG
 #include <iostream>
+
+using namespace std::chrono;
 
 class SpriteComponent : public Component
 {													//Maybe all this animation functionality belongs in a derived class
@@ -21,8 +24,9 @@ private:
 	Vector2d position;
 	bool animated = 0, isMap = 0;
 	int frames = 0, speed = 100;
+	std::string currentAnim="";
 public:
-	int animNdx = 0;
+	int animNdx = 0; unsigned ndx = 0;
 	std::map<const char*, Animation> animations;
 
 	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
@@ -37,7 +41,9 @@ public:
 	SpriteComponent(const char* path, bool isAnimated) : animated{isAnimated}
 	{
 		Animation idle = Animation(0, 1, 1);
-		Animation walk = Animation(1, 10, 100);
+		Animation walk = Animation(1, 10, 100);//////////////
+		//Animation walk = Animation(1, 10, 4);
+
 
 		animations.emplace("walk", walk);
 		animations.emplace("idle", idle);
@@ -100,13 +106,27 @@ public:
 		}
 		if (animated)
 		{
-			//if(transform->velocity.x==1)
-				srcRect.x = (srcRect.w) * static_cast<int>((SDL_GetTicks() / speed) % frames);
-			//else if (transform->velocity.x == -1)
-			//	srcRect.x = (srcRect.w) * static_cast<int>((SDL_GetTicks() / speed) % frames);
+			/// NOTHING MAKES THE JERK GO AWAY ON ANDROID
+			/*
+				with or without flags
+				frame dependent or time dependent animation
+				sdl ticks or steady clock
+
+				What if, like the other guy, we have some code causing lag,
+				We can try to see which frame took too long and output that and see if it coincides with the jerk...but cout isn't working here wtf
+			*/
+			
+			auto now = duration_cast<milliseconds>(steady_clock::now().time_since_epoch()).count();
+
+			//std::cout << static_cast<int>((ndx++ / speed) % frames) << " "<< now << std::endl;
+
+			//srcRect.x = (srcRect.w) * static_cast<int>(( ndx++ / speed) % frames);
+				srcRect.x = (srcRect.w) * static_cast<int>(     ( now  / speed) % frames);
+			//srcRect.x = (srcRect.w) * static_cast<int>((SDL_GetTicks() / speed) % frames);
 		}
 		srcRect.y = animNdx*transform->height;//Y pos for different sets of animations
 	}
+
 
 	void draw() override						
 	{
@@ -115,9 +135,12 @@ public:
 
 	void play(const char* animName)
 	{
-		frames = animations[animName].frames;
-		speed = animations[animName].speed;
-		animNdx = animations[animName].index;
+		if (currentAnim.compare(animName) != 0) {
+			frames = animations[animName].frames;
+			speed = animations[animName].speed;
+			animNdx = animations[animName].index;
+		}
+		currentAnim = animName;
 	}
 
 	~SpriteComponent()
