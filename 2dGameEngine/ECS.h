@@ -42,7 +42,7 @@ public:
 
 };
 
-class Entity
+class alignas(16) Entity
 {
 private:
 	Manager& manager;
@@ -154,9 +154,12 @@ public:
 		return groupedEntities[mGroup];
 	}
 
-	Entity& addEntity()
+	//Entity& addEntity()///////////////////DBg
+	Entity& addEntity(Manager* man)
 	{
-		Entity* e = new Entity(*this);
+		//Entity* e = new Entity(*this);///////////////////DBG
+		//std::cout << std::alignment_of<Entity>() << std::endl;
+		alignas(16) Entity* e = new Entity(*man);
 		std::unique_ptr<Entity> uPtr{ e };
 		entities.emplace_back(std::move(uPtr));
 		return *e;
