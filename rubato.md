@@ -89,7 +89,7 @@ Syntax | Display | HTML Output| Description
 
 Syntax | Display | HTML Output| Description
 -------|---------|------------|------------
-`[|a|b+c|d|]`|![](table.png)|`<table class="df_tb">`<br>&#8195;`<tr>`<br>&#8195;&#8195;`<td>a</td>`<br>&#8195;&#8195;`<td>b</td>`<br>&#8195;`</tr>`<br>&#8195;`<tr>`<br>&#8195;&#8195;`<td>c</td>`<br>&#8195;&#8195;`<td>d</td>`<br>&#8195;`</tr>`<br>`</table>`|Table
+`[|a|b+c|d|]`|![table](table.png)|`<table class="df_tb">`<br>&#8195;`<tr>`<br>&#8195;&#8195;`<td>a</td>`<br>&#8195;&#8195;`<td>b</td>`<br>&#8195;`</tr>`<br>&#8195;`<tr>`<br>&#8195;&#8195;`<td>c</td>`<br>&#8195;&#8195;`<td>d</td>`<br>&#8195;`</tr>`<br>`</table>`|Table
 
 <br>
 
