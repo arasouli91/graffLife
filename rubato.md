@@ -4,7 +4,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-  tr:not(.dftbtr), td:not(.dftbtd), th:not(.dftbth) {
+  tr, td:not(.dftbtd), th:not(.dftbth) {
     border: 1px solid lightgrey;
   }
 </style>
