@@ -10,13 +10,11 @@
 using namespace std::chrono;
 Game *game = nullptr;
 
-const int FPS = 60;					//60 is closest to refresh rate of monitors
+const int FPS = 60;			
 const int frameDelay = 1000 / FPS;	//Max time between frames
 
 // The "main loop" function.
 void one_iter() {
-	//TODO: should put if game running?
-
 
 #ifdef __EMSCRIPTEN__
 	steady_clock::time_point frameStart = steady_clock::now();
@@ -28,17 +26,10 @@ void one_iter() {
 
 #ifdef __EMSCRIPTEN__
 	steady_clock::duration timeSpan = steady_clock::now() - frameStart;
-
-	/// I don't really know if this math is correct, but I am trying to convert to milliseconds.
-	/// The numbers I am getting make sense. Frames are taking < 3 milli?seconds
-	// There is most likely extra shit happening here. num/den is stead_clock's period ratio, 
 	double frameTime = double(timeSpan.count()) * steady_clock::period::num / steady_clock::period::den;
 	frameTime *= 1000;
 
 	if (frameTime < frameDelay) {
-
-	// This while loop was? causing serious lag
-	// Well we don't really need this, but it might be good code?
 
 		while (frameTime < frameDelay) {
 			timeSpan = steady_clock::now() - frameStart;
@@ -46,17 +37,6 @@ void one_iter() {
 			frameTime *= 1000;
 		}
 	}
-//else
-//std::cout << frameTime<<std::endl;
-	///////
-	// WHY IS FRAMETIME COMING OUT AS IN AN INTEGER?
-	/*
-
-	if (frameDelay > frameTime)	// Tried this
-	{
-		SDL_Delay(frameDelay - frameTime);
-	}*/
-	// Supposed to help framerate? Supposed to free up resources after the frame?
 	SDL_Delay(0);
 #endif
 }
