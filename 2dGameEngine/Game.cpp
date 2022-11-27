@@ -177,7 +177,6 @@ int WebSocketMessage(int eventType, const EmscriptenWebSocketMessageEvent *e, vo
 		}*/
 		////////WON'T WORK: seems some initially spawned players already walk
 		/////more importantly, if nobody is sending updates, then some idlers are still animated
-		////but i dont fucking understand why when someone else updates, it still doesn't fix the idlers
 	}
 	else
 	{
@@ -255,14 +254,6 @@ Game::Game(const char* title, int xpos, int ypos, int width, int height, bool fu
 
 	Map mapLoader;
 	mapLoader.LoadMap("");
-
-	///ANOTHER MAJOR PROBLEM:
-	///WE NEED CHARACTER TO NOT PHYSICALLY MOVE, YET WE NEED TO RECORD HIS STEPS FOR GLOBAL POSITIONING
-	///BUT WE NEED MAP TO MOVE
-	///Seems we have to give keyboard controller and a separate transform comp to map
-	///Player can have a different type of keyboard controller to handle combat and anything else, might be able to use normal events for combat if simple key presses
-	///Problem is map needs to be made first, but we depend on transform comp of play
-	//map_.addComponent<SpriteComponent>("map.png", &player.getComponent<TransformComponent>(), 1600, 640);
 
 	///This should just be called canvas
 	map.addComponent<TransformComponent>(0, 93, 3341, 372, 1, 1, 0);
@@ -362,7 +353,6 @@ void Game::update()
 	}
 
 	/**
-	/////////////////////PAINT COUNTING BS
 	if (++sendPaintInfoTimer % 5000 == 0) {////////////////////////////
 		std::stringstream ss;
 		ss << map.getComponent<PaintController>().getPaintUsage();
